@@ -5,10 +5,13 @@ import { createBoard } from './graphics/board.js'
 import { createPiece } from './graphics/pieces.js'
 import { boardToWorld } from './chess/coordinates.js'
 import { createInitialBoard } from './chess/game.js'
+import { loadPieceModels } from './graphics/models.js'
 
 const gameBoard = createInitialBoard()
 
 const scene = new THREE.Scene()
+
+const pieceModels = await loadPieceModels()
 
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -44,9 +47,9 @@ for (let row = 0; row < 8; row++) {
     const piece = gameBoard[row][col]
 
     if (piece !== null) {
-      const pieceObject = createPiece(piece)
+      const pieceObject = createPiece(piece, pieceModels)
       const position = boardToWorld(row, col)
-      pieceObject.position.set(position.x, 0.3, position.z)
+      pieceObject.position.set(position.x, 0.1, position.z)
       scene.add(pieceObject)
     }
   }

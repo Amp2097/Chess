@@ -2,6 +2,11 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { createBoard } from './graphics/board.js'
+import { createPiece } from './graphics/pieces.js'
+import { boardToWorld } from './chess/coordinates.js'
+import { createInitialBoard } from './chess/game.js'
+
+const gameBoard = createInitialBoard()
 
 const scene = new THREE.Scene()
 
@@ -32,6 +37,20 @@ scene.add(light)
 
 const board = createBoard()
 scene.add(board)
+
+for (let row = 0; row < 8; row++) {
+  for (let col = 0; col < 8; col++) {
+
+    const piece = gameBoard[row][col]
+
+    if (piece !== null) {
+      const pieceObject = createPiece(piece)
+      const position = boardToWorld(row, col)
+      pieceObject.position.set(position.x, 0.3, position.z)
+      scene.add(pieceObject)
+    }
+  }
+}
 
 function animate() {
   controls.update()

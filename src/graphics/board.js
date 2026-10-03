@@ -10,7 +10,7 @@ export function createBoard() {
       const isLight = (row + col) % 2 === 0;
 
       const squareMaterial = new THREE.MeshStandardMaterial({
-        color: isLight ? 0xffffff : 0x000000,
+        color: isLight ? 0xffffff : 0x222222,
       });
 
       const square = new THREE.Mesh(squareGeometry, squareMaterial);
